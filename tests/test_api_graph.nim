@@ -1,6 +1,6 @@
 import json
 import unittest
-import "pixela/api/graph"
+import "pixela/api/graph_get"
 
 
 suite "compatible response":
