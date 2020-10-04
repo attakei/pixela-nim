@@ -2,6 +2,11 @@
 import httpclient
 
 
+const
+  API_URL_BASE* = "https://pixe.la/v1"
+    ## Endpoint URL base
+
+
 type
   Client* = ref object
     ##[ Client request struct.

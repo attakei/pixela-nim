@@ -1,6 +1,9 @@
 ## Implement of Graph APIs
+import httpclient
 import json
 import options
+import sequtils
+import "../client"
 
 
 type
@@ -29,3 +32,12 @@ proc toJson*(self: GraphDefinition): JsonNode =
   result = %*self
   result.add("type", result["utype"])
   result.delete("utype")
+
+
+proc getGraphs*(self: Client): seq[GraphDefinition] =
+  let httpClient = newHttpClient()
+  httpClient.headers = self.createRequestHeaders()
+  let url = API_URL_BASE & "/users/" & self.username & "/graphs/"
+  let resp = httpClient.request(url, HttpGet)
+  let data = parseJson(resp.body)
+  result = data["graphs"].mapIt(fromJson(it))
