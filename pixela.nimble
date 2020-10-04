@@ -5,7 +5,8 @@ author        = "Kazuya Takei"
 description   = "Pixela API client library"
 license       = "Apache-2.0"
 srcDir        = "src"
-
+binDir        = "bin"
+bin           = @["pixela/cli"]
 
 
 # Dependencies
