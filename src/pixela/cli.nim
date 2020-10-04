@@ -5,6 +5,7 @@ This module is CLI of reference implement to call some API endpoint.
 - All consts, types and procs are private. Don't import from outside.
 - Error handling is not implemented.
 ]##
+import httpclient
 import json
 import os
 import parseopt
@@ -22,6 +23,7 @@ type
     command: string
     graphId: string
     src: string
+    api: string
 
 
 proc parseArguments(args: var Arguments, cmdLine: string) =
@@ -37,6 +39,7 @@ proc parseArguments(args: var Arguments, cmdLine: string) =
       of "token", "t": args.token = p.val
       of "src", "s": args.src = p.val
       of "graph", "g": args.graphId = p.val
+      of "api", "a": args.api = p.val
     of cmdArgument:
       if args.command == "":
         args.command = p.key
@@ -57,5 +60,12 @@ when isMainModule:
   of "graph:delete":
     let resp = apiClient.deleteGraph(args.graphId)
     echo(resp.message)
+  of "api:put":
+    let httpClient = newHttpClient()
+    httpClient.headers = apiClient.createRequestHeaders()
+    let url = API_URL_BASE & args.api
+    let body = $readAll(open(args.src))
+    let resp = httpClient.request(url, HttpPut, body)
+    echo(resp.body)
   else:
     echo("Command not found")
