@@ -6,7 +6,8 @@ description   = "Pixela API client library"
 license       = "Apache-2.0"
 srcDir        = "src"
 binDir        = "bin"
-bin           = @["pixela/cli"]
+bin           = @["pixela/cli/pixelaref"]
+skipDirs      = @["pixela/cli"]
 
 
 # Dependencies
