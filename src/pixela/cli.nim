@@ -10,7 +10,7 @@ import json
 import os
 import parseopt
 import strutils
-import "./api/graph_create"
+import "./api/graph_post"
 import "./api/graph_delete"
 import "./api/graph_get"
 import "./client"
