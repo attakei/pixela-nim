@@ -16,6 +16,11 @@ type
     username*: string
     token*: string
 
+  ResponseBody* = ref object
+    ## Generic response content from Pixela.
+    isSuccess*: bool
+    message*: string
+
 
 proc newClient*(username: string, token: string): Client =
   result = Client(username: username, token: token)
