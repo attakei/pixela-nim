@@ -8,6 +8,7 @@ srcDir        = "src"
 binDir        = "bin"
 bin           = @["pixela/cli/pixelaref"]
 skipDirs      = @["pixela/cli"]
+installExt    = @["nim"]
 
 
 # Dependencies
