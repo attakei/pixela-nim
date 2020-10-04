@@ -8,6 +8,7 @@ This module is CLI of reference implement to call some API endpoint.
 import os
 import parseopt
 import strutils
+import "./api/graph" as graph_api
 import "./client"
 
 
@@ -15,6 +16,7 @@ type
   Arguments = ref object
     username: string
     token: string
+    command: string
 
 
 proc parseArguments(args: var Arguments, cmdLine: string) =
@@ -28,12 +30,18 @@ proc parseArguments(args: var Arguments, cmdLine: string) =
       case p.key:
       of "user", "u": args.username = p.val
       of "token", "t": args.token = p.val
-    of cmdArgument: discard
+    of cmdArgument:
+      if args.command == "":
+        args.command = p.key
 
 
 when isMainModule:
   var args = Arguments()
   args.parseArguments(commandLineParams().join(" "))
   let apiClient = newClient(args.username, args.token)
-  echo(apiClient.username)
-  echo(apiClient.token)
+  case args.command:
+  of "graph:list":
+    for g in apiClient.getGraphs():
+      echo(g.id)
+  else:
+    echo("Command not found")
