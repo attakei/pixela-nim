@@ -1,4 +1,4 @@
-## Implement of Graph APIs
+## Implement fir POST request for Graph APIs.
 import httpclient
 import json
 import "../client"
@@ -39,6 +39,7 @@ proc toJson*(self: GraphCreation): JsonNode =
 
 
 proc postGraph*(self: Client, body: GraphCreation): ResponseBody =
+  ## Create new graph in Pixela by definition.
   let httpClient = newHttpClient()
   httpClient.headers = self.createRequestHeaders()
   let url = API_URL_BASE & "/users/" & self.username & "/graphs/"

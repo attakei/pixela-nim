@@ -1,4 +1,4 @@
-## Implement of Graph APIs
+## Implement fir GET request for Graph APIs.
 import httpclient
 import json
 import options
@@ -35,6 +35,7 @@ proc toJson*(self: GraphDefinition): JsonNode =
 
 
 proc getGraphs*(self: Client): seq[GraphDefinition] =
+  ## Fetch list of graph definition from Pixela.
   let httpClient = newHttpClient()
   httpClient.headers = self.createRequestHeaders()
   let url = API_URL_BASE & "/users/" & self.username & "/graphs/"
